@@ -5,6 +5,7 @@
     ]
   },
   "hosting": {
+    "predeploy": "npm run build",
     "public": "build",
     "target": "algolia",
     "ignore": [

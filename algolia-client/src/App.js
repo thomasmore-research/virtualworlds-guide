@@ -9,6 +9,7 @@ import {
   ClearRefinements,
   RefinementList,
   Configure,
+  RangeInput,
 } from 'react-instantsearch-dom';
 import PropTypes from 'prop-types';
 import './App.css';
@@ -22,12 +23,15 @@ class App extends Component {
   render() {
     return (
       <div className="ais-InstantSearch">
-        <h1>Tools</h1>
         <InstantSearch indexName="tools" searchClient={searchClient}>
           <div className="left-panel">
             <ClearRefinements />
-            <h2>Brands</h2>
+            <h3>Geschikt voor</h3>
+            <RefinementList attribute="suitableFor" />
+            <h3>Features</h3>
             <RefinementList attribute="features" />
+            <h3>Deelnemers</h3>
+            <RangeInput attribute="maxDeelnemers" />
             <Configure hitsPerPage={8} />
           </div>
           <div className="right-panel">
@@ -45,7 +49,7 @@ function Hit(props) {
   const { hit } = props;
   const { logo } = hit;
   const image = logo && logo[0] && logo[0].downloadURL;
-  console.log(hit);
+  // console.log(hit);
   return (
     <div>
       <img src={image} align="left" alt={props.hit.name} />
