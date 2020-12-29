@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
 import algoliasearch from 'algoliasearch/lite';
+import React, { Component } from 'react';
 import {
   InstantSearch,
   Hits,
   SearchBox,
   Pagination,
   Highlight,
+  ClearRefinements,
   RefinementList,
-  Panel,
+  Configure,
 } from 'react-instantsearch-dom';
 import PropTypes from 'prop-types';
 import './App.css';
@@ -20,24 +21,19 @@ const searchClient = algoliasearch(
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <InstantSearch searchClient={searchClient} indexName="tools">
-          <div className="search-panel">
-            <div className="search-panel__results">
-              <SearchBox
-                className="searchbox"
-                translations={{
-                  placeholder: '',
-                }}
-              />
-              <RefinementList attribute="features" />
-
-              <Hits hitComponent={Hit} />
-
-              <div className="pagination">
-                <Pagination />
-              </div>
-            </div>
+      <div className="ais-InstantSearch">
+        <h1>Tools</h1>
+        <InstantSearch indexName="tools" searchClient={searchClient}>
+          <div className="left-panel">
+            <ClearRefinements />
+            <h2>Brands</h2>
+            <RefinementList attribute="features" />
+            <Configure hitsPerPage={8} />
+          </div>
+          <div className="right-panel">
+            <SearchBox />
+            <Hits hitComponent={Hit} />
+            <Pagination />
           </div>
         </InstantSearch>
       </div>
@@ -45,13 +41,22 @@ class App extends Component {
   }
 }
 
-function Hit({ hit, name }) {
+function Hit(props) {
+  const { hit } = props;
   const { logo } = hit;
   const image = logo && logo[0] && logo[0].downloadURL;
+  console.log(hit);
   return (
-    <Panel header={<Highlight attribute="name" hit={hit} />}>
-      <img src={image} width="100"></img>
-    </Panel>
+    <div>
+      <img src={image} align="left" alt={props.hit.name} />
+      <div className="hit-name">
+        <Highlight attribute="name" hit={props.hit} />
+      </div>
+      <div className="hit-description">
+        <Highlight attribute="description" hit={props.hit} />
+      </div>
+      <div className="hit-price">{props.hit.price}</div>
+    </div>
   );
 }
 
