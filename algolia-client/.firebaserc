@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "virtual-worlds-662b2"
+  },
+  "targets": {
+    "virtual-worlds-662b2": {
+      "hosting": {
+        "algolia": [
+          "vw-algolia"
+        ]
+      }
+    }
+  }
+}
