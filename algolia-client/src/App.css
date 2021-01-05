@@ -44,3 +44,11 @@ body {
   font-size: 14px;
   margin-bottom: 0.5em;
 }
+
+
+.ais-Hits-item {
+    margin-bottom: 1em;
+    width: calc(50% - 1rem) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
